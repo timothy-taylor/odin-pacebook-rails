@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :pending_requests_receiver, -> { where confirmed: false }, class_name: "FriendRequest", foreign_key: "friend_id"
   has_many :pending_requests_sender, -> { where confirmed: false }, class_name: "FriendRequest", foreign_key: "user_id"
 
+  has_one_attached :photo
   has_many :posts, dependent: :destroy
   has_many :comments
 

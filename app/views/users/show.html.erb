@@ -1,6 +1,12 @@
 <%= render "nav" %>
-
 <h1 class="title is-4 has-text-centered">
+  <% if @user.photo.attached? %>
+  <figure class="image is-128x128 is-inline-block">
+    <%= image_tag @user.photo.variant(resize_to_limit: [200,200], crop: [0,0,128,128]), class: "is-rounded" %>
+  </figure>
+  <br />
+  <br />
+<% end %>
   <%= @user.name %>
 </h1>
 <h2 class="subtitle is-4 has-text-centered">
@@ -70,12 +76,12 @@
 <% if @user.posts.count > 0 %>
   <div class="section">
     <h1 class="title is-5 has-text-centered">Recent Posts:</h1>
-  <% @user.posts.take(3).each do |post| %>
-    <div class="box content">
-      <h3 class="subtitle is-5"><%= post.fmt_date %></h3>
-      <%= post.body %>
-    </div>
-  <% end %>
+    <% @user.posts.take(3).each do |post| %>
+      <div class="box content">
+        <h3 class="subtitle is-5"><%= post.fmt_date %></h3>
+        <%= post.body %>
+      </div>
+    <% end %>
   </div>
 <% end %>
 <% if current_user.eql?(@user) %>
