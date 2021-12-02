@@ -13,12 +13,10 @@ class User < ApplicationRecord
   has_many :pending_requests_receiver, -> { where confirmed: false }, class_name: "FriendRequest", foreign_key: "friend_id"
   has_many :pending_requests_sender, -> { where confirmed: false }, class_name: "FriendRequest", foreign_key: "user_id"
 
-  def collect_ids_receiver
-    (self.friends_receiver + self.pending_requests_sender).map{ |e| e.user_id }
-  end
-  
-  def collect_ids_sender
-    (self.friends_sender + self.pending_requests_sender).map{ |e| e.friend_id }
+  has_many :posts
+
+  def requests
+    self.friends_sender + self.friends_receiver + self.pending_requests_sender + self.pending_requests_receiver
   end
 
   def friends

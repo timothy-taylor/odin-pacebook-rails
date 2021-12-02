@@ -5,7 +5,9 @@
   </div>
   <div class="level-right">
     <% if user_signed_in? %>
-      <%= link_to "Home", users_path, class: "level-item" %>
+      <%= link_to "New Post", new_post_path, class: "level-item" %>
+      <%= link_to "Home", root_path, class: "level-item" %>
+      <%= link_to "Users", users_path, class: "level-item" %>
       <%= link_to "Your Profile", user_path(current_user.id), class: "level-item" %>
       <%= link_to "Sign Out", destroy_user_session_path, method: "delete", class: "button is-link"%>
     <% else %>
@@ -13,11 +15,12 @@
     <% end %>
   </div>
 </nav>
-<% if current_user.pending_requests_receiver.count > 0 %>
-  <div class="notification">
-    <button class="delete"></button>
-    You've got friend requests! Go to your <%= link_to "profile", user_path(current_user.id) %> to check them!
-  </div>
+<% if user_signed_in? %>
+  <% if current_user.pending_requests_receiver.count > 0 %>
+    <div class="notification">
+      <button class="delete"></button>
+      You've got friend requests! Go to your <%= link_to "profile", user_path(current_user.id) %> to check them!
+    </div>
+  <% end %>
 <% end %>
-
 

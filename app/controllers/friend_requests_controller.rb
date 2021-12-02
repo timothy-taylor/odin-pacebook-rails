@@ -4,7 +4,7 @@ class FriendRequestsController < ApplicationController
     request = @user.pending_requests_receiver.build
     request.user_id = current_user.id
     if request.save
-      redirect_to users_path, notice: "Friend request sent!"
+      redirect_to root_path, notice: "Friend request sent!"
     else
       redirect_to @user, notice: "Something went wrong. Error #{request.errors.messages}"
     end
