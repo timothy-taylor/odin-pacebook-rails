@@ -3,17 +3,24 @@ require "test_helper"
 class UsersControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
-   test "should get index if signed in" do
+   test "get index if signed in" do
      sign_in users(:one)
 
-     get users_index_url
+     get users_path
      assert_response :success
    end
 
-   test "should redirect if not signed in" do
+   test "redirect if not signed in" do
      sign_out :user
 
-     get users_index_url
+     get users_path
      assert_response :found
+   end
+
+   test "show user" do
+     sign_in users(:one)
+
+     get users_path(User.first)
+     assert_response :success
    end
 end

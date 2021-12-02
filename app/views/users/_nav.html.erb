@@ -1,0 +1,23 @@
+<nav class="level">
+  <div class="level-left">
+    <h1 class="title has-text-centered">Pacebook</h1>
+    <h2 class="subtitle has-text-centered pl-4">a runners' connection</p>
+  </div>
+  <div class="level-right">
+    <% if user_signed_in? %>
+      <%= link_to "Home", users_path, class: "level-item" %>
+      <%= link_to "Your Profile", user_path(current_user.id), class: "level-item" %>
+      <%= link_to "Sign Out", destroy_user_session_path, method: "delete", class: "button is-link"%>
+    <% else %>
+      <%= link_to "Sign In", new_user_session_path, method: "get", class: "button is-link" %>
+    <% end %>
+  </div>
+</nav>
+<% if current_user.pending_requests_receiver.count > 0 %>
+  <div class="notification">
+    <button class="delete"></button>
+    You've got friend requests! Go to your <%= link_to "profile", user_path(current_user.id) %> to check them!
+  </div>
+<% end %>
+
+

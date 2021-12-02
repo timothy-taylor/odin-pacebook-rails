@@ -1,10 +1,13 @@
-<h1 class="title">Users#index</h1>
-<p class="subtitle">Find me in app/views/users/index.html.erb</p>
+<%= render "nav" %>
+<% if user_signed_in? %>
+  <div class="box">
+    <ul>
+      <% @users.each do |user| %>
+        <li><%= link_to "#{user.name}: #{user.email}", user_path(user.id) %></li>
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+  <h1 class="title has-text-centered">Welcome! Please sign in!</h1>
+<% end %>
 
-<div class="box">
-  <ul>
-    <% @users.each do |user| %>
-      <li><%= user.email %></li>
-    <% end %>
-  </ul>
-</div>

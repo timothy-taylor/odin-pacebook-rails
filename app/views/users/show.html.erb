@@ -1,0 +1,73 @@
+<%= render "nav" %>
+<h1 class="title is-4 has-text-centered">
+  <%= @user.name %>
+</h1>
+<h2 class="subtitle is-4 has-text-centered">
+  <% unless @user.location.nil? %>
+    location: <%= @user.location %>
+  <% end %>
+</h2>
+<p class="content has-text-centered is-italic">
+  <%= @user.bio %>
+</p>
+<% unless current_user.eql?(@user) %>
+  <% unless current_user.friends.map{ |e| e.user_id}.include?(@user.id) %>
+    <div class="has-text-centered pb-4">
+      <%= link_to "Send Friend Request", friend_requests_path(@user.id), method: "post" %>
+    </div>
+  <% end %>
+<% else %>
+  <% if @user.pending_requests_receiver.count > 0 %>
+    <div class="box">
+      <h1 class="title is-5">Pending Friend Requests:</h1>
+      <% @user.pending_requests_receiver.each do |request| %>
+        <div class="level">
+          <div class="level-left">
+            <span class="p-4"><strong>From:</strong> <%= User.find(request.user_id).name %></span><br />
+            <div class="dropdown is-hoverable">
+              <div class="dropdown-trigger">
+                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                  <span>Respond to Friend Request</span>
+                  <span class="icon is-small">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </div>
+              <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                  <div class="dropdown-item is-active">
+                    <%= link_to "Accept", friend_request_path(request), method: "patch" %>
+                  </div>
+                  <div class="dropdown-item">
+                    <%= link_to "Decline", friend_request_path(request), method: "delete" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+<% if @user.friends.count > 0 %>
+  <div class="box content">
+    <h1 class="title is-5">Friends:</h1>
+    <ul>
+      <% @user.friends_sender.each do |friend| %>
+        <% u = User.find(friend.friend_id) %>
+        <li><%= link_to u.name, user_path(u.id) %></li>
+      <% end %>
+      <% @user.friends_receiver.each do |friend| %>
+        <% u = User.find(friend.user_id) %>
+        <li><%= link_to u.name, user_path(u.id) %></li>
+      <% end %>
+
+    </ul>
+  </div>
+<% end %>
+<% if current_user.eql?(@user) %>
+  <div class="content has-text-centered">
+    <%= link_to "Edit My Account", edit_user_registration_path %>
+  </div>
+<% end %>
