@@ -1,4 +1,5 @@
 <%= render "nav" %>
+
 <h1 class="title is-4 has-text-centered">
   <%= @user.name %>
 </h1>
@@ -10,6 +11,7 @@
 <p class="content has-text-centered is-italic">
 <%= @user.bio %>
 </p>
+
 <% unless current_user.eql?(@user) %>
   <% unless current_user.requests.any?{ |e| e.user_id.eql?(@user.id) || e.friend_id.eql?(@user.id) } %>
     <div class="has-text-centered pb-4">
@@ -62,7 +64,6 @@
         <% u = User.find(friend.user_id) %>
         <li><%= link_to u.name, user_path(u.id) %></li>
       <% end %>
-
     </ul>
   </div>
 <% end %>

@@ -1,26 +1,58 @@
 <%= render "users/nav" %>
 
-<h1 class="title is-4 has-text-centered">Feed</h1>
-<div class="columns">
-  <div class="column is-one-quarter"></div>
-  <div class="column is-half">
-    <% @posts.take(10).each do |post| %>
-      <div class="card mb-4">
-        <div class="card-content">
-          <h3 class="title is-5"><%= link_to post.user.name, user_path(post.user_id) %></h3>
-          <h4 class="subtitle is-6 is-italic"><%= post.fmt_date %></h4>
-          <p class="content">
-          <%= post.body %>
-          </p>
+<% if user_signed_in? %>
+  <h1 class="title is-4 has-text-centered">Your Feed</h1>
+  <div class="columns">
+    <div class="column is-one-quarter"></div>
+    <div class="column is-half">
+      <% @posts.take(10).each do |post| %>
+        <div class="card mb-4">
+          <div class="card-content">
+            <h3 class="title is-5"><%= link_to post.user.name, user_path(post.user_id) %></h3>
+            <h4 class="subtitle is-7 is-italic">
+              <%= post.fmt_date %>
+              <% if user_signed_in? && current_user.id.eql?(post.user_id) %>
+                <%= link_to 'Edit', edit_post_path(post), class: "pl-4" %>
+                <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "pl-4" %>
+              <% end %>
+
+            </h4>
+            <p class="content is-medium">
+            <%= post.body %>
+            <% if post.comments.count > 0 %>
+              <div class="section">
+                <h3 class="subtitle is-6 is-italic">
+                  <%= link_to "Comments:", post_path(post.id) %>
+                </h3>
+                <% if post.comments.count > 3 %>
+                  <span class="subtitle is-7 is-italic">
+                    <%= "showing 3 of #{post.comments.count} " %>
+                  </span>
+                <% end %>
+                <ul>
+                  <% post.comments.last(3).each do |comment| %>
+                    <li class="box">
+                      <span>
+                        <%= comment.body %> -
+                        <%= link_to comment.user.name, user_path(comment.user.id) %>
+                      </span>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+            </p>
+          </div>
+          <div class="card-footer">
+            <%= link_to 'Leave a Comment', new_post_comment_path(post.id), class: "card-footer-item" %>
+          </div>
         </div>
-        <div class="card-footer">
-          <%= link_to 'Show', post, class: "card-footer-item" %>
-          <% if user_signed_in? && current_user.id.eql?(post.user_id) %>
-            <%= link_to 'Edit', edit_post_path(post), class: "card-footer-item" %>
-            <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "card-footer-item" %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
-</div>
+  <p class="content has-text-centered is-italic">
+    <%= link_to "[ click here to look for old/new friends ]", users_path %>
+  </p>
+<% else %>
+  <h1 class="title has-text-centered">Welcome! Please sign in!</h1>
+<% end %>

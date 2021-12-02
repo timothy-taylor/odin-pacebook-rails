@@ -1,0 +1,7 @@
+<%= render 'users/nav' %>
+
+<h1 class="title is-4">New Comment</h1>
+
+<%= render 'form', comment: @comment, locals: { url: post_comments_path, method: "post" } %>
+<br />
+<%= link_to 'Back', root_path %>

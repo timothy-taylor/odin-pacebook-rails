@@ -1,13 +1,30 @@
 <%= render "users/nav" %>
-<p>
-  <strong>Body:</strong>
-  <%= @post.body %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @post.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
+<h3 class="subtitle is-5 is-italic"><%= @post.created_at %></h3>
+<h1 class="title"><%= @post.body %></h1>
+<h2 class="subtitle">by: <%= @post.user.name %></h2>
+<% if current_user.eql?(@post.user) %>
+  <%= link_to 'Edit', edit_post_path(@post) %>
+<% end %>
+<div class="section">
+  <% if @post.comments.count > 0 %>
+    <h2 class="subtitle">Comments:</h2>
+    <% @post.comments.each do |comment| %>
+      <div class="box">
+        <h4 class="subtitle is-7 is-italic">
+          <%= comment.created_at %>
+          <% if comment.user.eql?(current_user) %>
+            <%= link_to "Edit", edit_post_comment_path(post_id: comment.post.id, id: comment.id), class: "pl-4" %>
+            <%= link_to "Delete", post_comment_path(id: comment.id, post_id: comment.post.id), method: "delete", class: "pl-4" %>
+          <% end %>
+        </h4>
+        <h3 class="subtitle">
+          <%= comment.body %>
+        </h3>
+        <span>
+          - <%= link_to comment.user.name, user_path(comment.user) %>
+        </span>
+      </div>
+    <% end %>
+  <% end %>
+</div>
 <%= link_to 'Back', posts_path %>

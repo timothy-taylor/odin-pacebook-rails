@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.order(created_at: :desc)
+    @posts = user_signed_in? ? Post.where('user_id IN (?)', current_user.friends_ids).order(created_at: :desc) : nil
   end
 
   # GET /posts/1 or /posts/1.json

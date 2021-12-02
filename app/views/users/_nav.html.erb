@@ -1,17 +1,17 @@
 <nav class="level">
   <div class="level-left">
-    <h1 class="title has-text-centered">Pacebook</h1>
-    <h2 class="subtitle has-text-centered pl-4">a runners' connection</p>
+    <a href="/" class="level">
+      <h1 class="title has-text-centered">Pacebook</h1>
+      <p class="subtitle has-text-centered pl-4">a runners' connection</p>
+    </a>
   </div>
   <div class="level-right">
     <% if user_signed_in? %>
       <%= link_to "New Post", new_post_path, class: "level-item" %>
-      <%= link_to "Home", root_path, class: "level-item" %>
-      <%= link_to "Users", users_path, class: "level-item" %>
       <%= link_to "Your Profile", user_path(current_user.id), class: "level-item" %>
-      <%= link_to "Sign Out", destroy_user_session_path, method: "delete", class: "button is-link"%>
+      <%= link_to "Sign Out", destroy_user_session_path, method: "delete", class: "button is-link level-item"%>
     <% else %>
-      <%= link_to "Sign In", new_user_session_path, method: "get", class: "button is-link" %>
+      <%= link_to "Sign In", new_user_session_path, method: "get", class: "button is-link level-item" %>
     <% end %>
   </div>
 </nav>
