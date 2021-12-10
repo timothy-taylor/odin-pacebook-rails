@@ -3,9 +3,9 @@
     <h2 class="title">Log in</h2>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field">
-        <%= f.label :email, class: "label"%><br />
+        <%= f.label :name, class: "label"%><br />
         <div class="control">
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input", type: "email" %>
+          <%= f.email_field :name, autofocus: true, autocomplete: "name", class: "input", type: "text" %>
         </div>
       </div>
 

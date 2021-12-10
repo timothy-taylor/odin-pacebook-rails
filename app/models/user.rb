@@ -31,13 +31,14 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
+    puts auth
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
       user.name = auth.info.nickname
       user.password = Devise.friendly_token[0,20]
-      user.photo = auth.info.image
-      user.location = auth.info.location
-      user.bio = auth.info.description
     end
+  end
+
+  def email_required?
+    false
   end
 end
