@@ -50,8 +50,16 @@
       <% end %>
     </div>
   </div>
+  <h3 class="subtitle has-text-centered is-6">Some people you may know:</h3>
   <p class="content has-text-centered is-italic">
-    <%= link_to "[ click here to look for old/new friends ]", users_path %>
+  <% @users.take(3).each do |user| %>
+    <%= user.name %>
+    <%= link_to "[ Visit Profile ]", user_path(user) %>
+    <% unless current_user.any_connection?(user) %>
+      <%= link_to "[ Send Friend Request ]", friend_requests_path(user.id), method: "post" %>
+    <% end %>
+    <br />
+  <% end %>
   </p>
 <% else %>
   <h1 class="title has-text-centered">Welcome! Please sign in!</h1>

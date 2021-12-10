@@ -19,7 +19,7 @@
 </p>
 
 <% unless current_user.eql?(@user) %>
-  <% unless current_user.requests.any?{ |e| e.user_id.eql?(@user.id) || e.friend_id.eql?(@user.id) } %>
+  <% unless current_user.any_connection?(@user) %>
     <div class="has-text-centered pb-4">
       <%= link_to "Send Friend Request", friend_requests_path(@user.id), method: "post" %>
     </div>
