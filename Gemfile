@@ -58,3 +58,13 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "devise", "~> 4.8"
 gem "bulma-rails", "~> 0.9.2"
 gem "image_processing", "~> 1.12"
+
+gem "figaro", "~> 1.2"
+
+gem "omniauth-twitter", "~> 1.4"
+
+gem "omniauth-rails_csrf_protection", "~> 1.0"
+
+gem "omniauth", "~> 2.0"
+
+gem "activerecord-session_store", "~> 2.0"
