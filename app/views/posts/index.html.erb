@@ -15,10 +15,16 @@
                 <%= link_to 'Edit', edit_post_path(post), class: "pl-4" %>
                 <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' }, class: "pl-4" %>
               <% end %>
-
             </h4>
             <p class="content is-medium">
-            <%= post.body %>
+            <% unless post.review.nil? %>
+              <h5 class="title is-6">Review: <%= "#{post.review} / 10 " %></h5>
+              <progress class="progress is-primary" value=<%=post.review%> max="10"></progress><br>
+            <% end %>
+              <% unless post.header.nil? %>
+                <h5 class="title"><%= post.header %></h5>
+              <% end %>
+            <p><%= post.body %></p>
             <% if post.comments.count > 0 %>
               <div class="section">
                 <h3 class="subtitle is-6 is-italic">
