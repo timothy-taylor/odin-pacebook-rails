@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [ :twitter ]
+         :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [ :github ]
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :location, length: { maximum: 20 }, allow_blank: true
@@ -32,8 +32,8 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email ? auth.info.email : "twitter_#{Devise.friendly_token[0,6]}_dummy@example.com"
-      user.name = auth.info.nickname ? auth.info.nickname : "user_#{Devise.friendly_token[0,4]}"
+      user.email = auth.info.email
+      user.name = auth.info.nickname
       user.password = Devise.friendly_token[0,20]
       user.photo = auth.info.image
       user.location = auth.info.location

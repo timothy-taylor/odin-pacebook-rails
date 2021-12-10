@@ -61,10 +61,10 @@ gem "image_processing", "~> 1.12"
 
 gem "figaro", "~> 1.2"
 
-gem "omniauth-twitter", "~> 1.4"
-
 gem "omniauth-rails_csrf_protection", "~> 1.0"
 
 gem "omniauth", "~> 2.0"
 
 gem "activerecord-session_store", "~> 2.0"
+
+gem "omniauth-github", "~> 2.0"
