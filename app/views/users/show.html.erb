@@ -1,12 +1,12 @@
 <%= render "nav" %>
 <h1 class="title is-4 has-text-centered">
   <% if @user.photo.attached? %>
-  <figure class="image is-128x128 is-inline-block">
-    <%= image_tag @user.photo.variant(resize_to_limit: [200,200], crop: [0,0,128,128]), class: "is-rounded" %>
-  </figure>
-  <br />
-  <br />
-<% end %>
+    <figure class="image is-128x128 is-inline-block">
+      <%= image_tag @user.photo.variant(resize_to_limit: [200,200], crop: [0,0,128,128]), class: "is-rounded" %>
+    </figure>
+    <br />
+    <br />
+  <% end %>
   <%= @user.name %>
 </h1>
 <h2 class="subtitle is-4 has-text-centered">
@@ -17,7 +17,11 @@
 <p class="content has-text-centered is-italic">
 <%= @user.bio %>
 </p>
-
+<% if current_user.eql?(@user) %>
+  <div class="content has-text-centered">
+    <%= link_to "Edit My Account", edit_user_registration_path %>
+  </div>
+<% end %>
 <% unless current_user.eql?(@user) %>
   <% unless current_user.any_connection?(@user) %>
     <div class="has-text-centered pb-4">
@@ -26,7 +30,7 @@
   <% end %>
 <% else %>
   <% if @user.pending_requests_receiver.count > 0 %>
-    <div class="box">
+    <div class="box pb-4">
       <h1 class="title is-5">Pending Friend Requests:</h1>
       <% @user.pending_requests_receiver.each do |request| %>
         <div class="level">
@@ -88,8 +92,4 @@
     <% end %>
   </div>
 <% end %>
-<% if current_user.eql?(@user) %>
-  <div class="content has-text-centered">
-    <%= link_to "Edit My Account", edit_user_registration_path %>
-  </div>
-<% end %>
+

@@ -19,7 +19,8 @@
   <% if current_user.pending_requests_receiver.count > 0 %>
     <div class="notification">
       <button class="delete"></button>
-      You've got friend requests! Go to your <%= link_to "profile", user_path(current_user.id) %> to check them!
+      <p class="has-text-centered">
+      You've got friend requests! Go to your <%= link_to "profile", user_path(current_user.id) %> to check them!</p>
     </div>
   <% end %>
 <% end %>
