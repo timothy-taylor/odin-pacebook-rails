@@ -1,7 +1,13 @@
 <%= render "users/nav" %>
 
-<h1 class="title is-5">Make a Post</h1>
+<div class="columns">
+  <div class="column is-half is-offset-one-quarter box p-6">
 
-<%= render 'form', post: @post %>
-<br />
-<%= link_to 'Back', posts_path %>
+    <h1 class="title is-5">Make a Post</h1>
+
+    <%= render 'form', post: @post %>
+    <br />
+    <%= link_to 'Back', posts_path %>
+
+  </div>
+</div>

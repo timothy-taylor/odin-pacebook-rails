@@ -3,7 +3,7 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   validates :body, presence: true, length: { maximum: 2000 }
-  validates :header, allow_blank: true, length: { maximum: 20 }
+  validates :header, allow_blank: true, length: { maximum: 30 }
   validates :review, allow_blank: true, numericality: { less_than_or_equal_to: 10 }
 
   def fmt_date

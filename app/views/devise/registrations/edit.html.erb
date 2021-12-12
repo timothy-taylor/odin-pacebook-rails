@@ -1,5 +1,5 @@
-<div class="hero">
-  <div class="hero-body">
+<div class="columns">
+  <div class="column is-half is-offset-one-quarter box p-6">
     <h2 class="title">Edit <%= resource_name.to_s.humanize %></h2>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
@@ -22,7 +22,7 @@
       <div class="field">
         <%= f.label :bio, class: "label" %>
         <div class="control">
-          <%= f.text_field :bio, class: "input textarea", type: "text" %>
+          <%= f.text_area :bio, class: "input textarea", type: "text" %>
         </div>
       </div>
 
@@ -78,4 +78,4 @@
     <br />
     <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "button is-link" %></p>
     <br />
-    <%= link_to "Back", :back %>
+    <%= link_to "Back", user_path(current_user) %>

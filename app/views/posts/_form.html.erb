@@ -1,41 +1,41 @@
-<%= form_with(model: post) do |form| %>
-  <% if post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+    <%= form_with(model: post) do |form| %>
+      <% if post.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-      <ul>
-        <% post.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% post.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <div class="field">
-    <%= form.label :review, class: "label" %>
-    <div class="control">
-      <%= form.number_field :review, in: 1..10, step: 1 %>
-      <span> out of 10 <span class="is-italic">(leave blank if not a review)</span></span>
-    </div>
-  </div>
+      <div class="field">
+        <%= form.label :review, class: "label" %>
+        <div class="control">
+          <%= form.number_field :review, in: 1..10, step: 1 %>
+          <span> out of 10 <span class="is-italic">(leave blank if not a review)</span></span>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= form.label :header, class: "label" %>
-    <div class="control">
-      <%= form.text_area :header, class: "input", type: "text" %>
-    </div>
-  </div>
+      <div class="field">
+        <%= form.label :header, class: "label" %>
+        <div class="control">
+          <%= form.text_area :header, class: "input", type: "text" %>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= form.label :body, class: "label" %>
-    <div class="control">
-      <%= form.text_area :body, class: "input textarea", type: "text"%>
-    </div>
-  </div>
+      <div class="field">
+        <%= form.label :body, class: "label" %>
+        <div class="control">
+          <%= form.text_area :body, class: "input textarea", type: "text"%>
+        </div>
+      </div>
 
-  <div class="actions">
-    <div class="control">
-        <%= form.submit "Post", class: "button is-link"%>
-    </div>
-  </div>
-<% end %>
+      <div class="actions">
+        <div class="control">
+          <%= form.submit "Post", class: "button is-link"%>
+        </div>
+      </div>
+    <% end %>

@@ -76,9 +76,13 @@
 <% if @user.posts.count > 0 %>
   <div class="section">
     <h1 class="title is-5 has-text-centered">Recent Posts:</h1>
-    <% @user.posts.take(3).each do |post| %>
+    <% @user.posts.last(3).reverse.each do |post| %>
       <div class="box content">
-        <h3 class="subtitle is-5"><%= post.fmt_date %></h3>
+        <h2 class="title"><%= link_to post.header, post_path(post) %></h2>
+        <% unless post.review.nil? %>
+          <h3 class="subtitle is-6 is-italic"><%= "Review: #{post.review} / 10" %></h3>
+        <% end %>
+        <h4 class="subtitle is-6"><%= post.fmt_date %></h3>
         <%= post.body %>
       </div>
     <% end %>

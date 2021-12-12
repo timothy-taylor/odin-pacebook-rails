@@ -1,5 +1,13 @@
-<h1 class="title is-5">Edit Comment</h1>
+<%= render "users/nav" %>
 
-<%= render 'form', comment: @comment, locals: { url: post_comment_path, method: "patch" } %>
-<br />
-<%= link_to 'Back', post_path(@comment.post.id) %>
+<div class="columns">
+  <div class="column is-half is-offset-one-quarter box p-6">
+
+    <h1 class="title is-5">Edit Comment</h1>
+
+    <%= render 'form', comment: @comment, locals: { url: post_comment_path, method: "patch" } %>
+    <br />
+    <%= link_to 'Back', post_path(@comment.post.id) %>
+
+  </div>
+</div>

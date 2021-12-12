@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :comments, except: [ :index, :show ]
   end
 
-  resources :users, only: [ :index, :show ]
+  resources :users, only: [ :show ]
   resources :friend_requests, only: [ :create, :update, :destroy ]
 
   root 'posts#index'
